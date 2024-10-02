@@ -38,5 +38,11 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-        name: 1
-        path: arch/arm64/boot/Image.gz
+        name: Image.gz
+        path: $GITHUB_WORKSPACE/arch/arm64/boot/Image.gz
+    
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: Image
+        path: $GITHUB_WORKSPACE/arch/arm64/boot/Image
