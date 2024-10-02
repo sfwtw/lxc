@@ -33,18 +33,10 @@ jobs:
     - name: Build kernel
       run: |
         sudo sh run.sh
-        cd out/arch/arm64/boot/
-        ls
-        cd $GITHUB_WORKSPACE
-        echo 2
-        cd arch/arm64/boot/
-        ls
-        cd /home/runner/work/lxc/lxc/out
-        ls
         cd $GITHUB_WORKSPACE
     
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
         name: 1
-        path: out/arch/arm64/boot/install.sh
+        path: arch/arm64/boot/Image.gz
