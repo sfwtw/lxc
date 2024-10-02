@@ -4,11 +4,16 @@ on:
     types: [started]
 
   workflow_dispatch:
-
+    inputs:
+      debug_enabled:
+        type: boolean
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+        required: false
+        default: false
 jobs:
   build:
     name: Build Kernel by ${{ github.actor }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
@@ -34,15 +39,19 @@ jobs:
       run: |
         sudo sh run.sh
         cd $GITHUB_WORKSPACE
+
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
     
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
         name: Image.gz
-        path: $GITHUB_WORKSPACE/arch/arm64/boot/Image.gz
+        path: $GITHUB_WORKSPACE/Image.gz
     
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
         name: Image
-        path: $GITHUB_WORKSPACE/arch/arm64/boot/Image
+        path: $GITHUB_WORKSPACE/Image
