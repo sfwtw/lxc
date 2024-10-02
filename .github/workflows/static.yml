@@ -39,6 +39,8 @@ jobs:
         echo 2
         cd arch/arm64/boot/
         ls
+        cd /home/runner/work/lxc/lxc/out
+        ls
         cd $GITHUB_WORKSPACE
     
     - name: Upload
