@@ -14,7 +14,7 @@ export ARCH=arm64
 export LOCALVERSION="-yun"
 
 make clean; rm -rf out; mkdir out
-make -j$(nproc) -C $DIR O=$DIR/out cs_defconfig
+make -j$(nproc) -C $DIR O=$DIR/out gki_defconfig
 ./scripts/config --file out/.config \
     -d UH -d RKP -d KDP -d SECURITY_DEFEX -d INTEGRITY -d FIVE -d TRIM_UNUSED_KSYMS \ 
     -e LTO_CLANG_THIN -e SYSVIPC -e POSIX_MQUEUE -e CGROUP_DEVICE -e PID_NS -e USER_NS \
